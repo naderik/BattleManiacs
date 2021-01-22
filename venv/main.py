@@ -14,7 +14,7 @@ cura = Spell("Cura", 18, 200, "white")
 
 # Instantiate People
 player = Person(300, 65, 60, 35, [fire, thunder, blizzard, meteor, cure, cura])
-enemy = Person(1500, 65, 45 , 25, [])
+enemy = Person(1500, 65, 45, 25, [])
 
 running = True
 i = 0
@@ -39,7 +39,6 @@ while running:
         print(spell)
         magic_dmg = spell.generate_damage()
 
-
         current_mp = player.get_mp()
 
         if spell.cost > current_mp:
@@ -47,25 +46,28 @@ while running:
             continue
 
         player.reduce_mp(spell.cost)
-        enemy.take_damage(magic_dmg)
-        print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage" + bcolors.ENDC)
 
+        if spell.type == "white":
+            player.heal(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + spell.name + " heals for ", str(magic_dmg), " HP." + bcolors.ENDC)
+        elif spell.type == "black":
+            enemy.take_damage(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage" + bcolors.ENDC)
 
     enemy_choice = 1
 
     enemy_dmg = enemy.generate_damage()
     player.take_damage(enemy_dmg)
+
     print("Enemy attacks for", enemy_dmg, "points of HP")
 
-
-
     print("_____________________________")
+
     print("Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
 
     print("Your HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC)
 
     print("Your MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC)
-
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You Win!" + bcolors.ENDC)

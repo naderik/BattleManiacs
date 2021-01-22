@@ -1,7 +1,9 @@
 import random
 from .magic import Spell
 
+
 class bcolors:
+
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -11,7 +13,9 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+
 class Person:
+
     def __init__(self, hp, mp, atk, df, magic):
         self.maxhp = hp
         self.hp = hp
@@ -51,7 +55,6 @@ class Person:
 
     def reduce_mp(self, cost):
         self.mp -= cost
-
 
     def choose_action(self):
         i = 1
